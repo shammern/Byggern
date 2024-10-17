@@ -34,7 +34,7 @@ typedef struct{
 } Slider;
 
 typedef enum{
-	UP,
+	UP = 1,
 	DOWN,
 	RIGHT,
 	LEFT,
@@ -48,6 +48,6 @@ void test_adc(JoyStick *Stick, Slider *Slide);
 void joyStickPos(JoyStick *Stick);
 Joystick_direction joyStickDir(JoyStick *Stick);
 JoyStick* JoyStickInit(void); 
-uint8_t joyStickClick(); //Denne må nok sees på senere når vi vet hvordan den skal implementeres, men den funker :)
+uint8_t joyStickClick(); //Denne mï¿½ nok sees pï¿½ senere nï¿½r vi vet hvordan den skal implementeres, men den funker :)
 
 #endif /* ADC_H_ */

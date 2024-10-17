@@ -5,6 +5,7 @@
  *  Author: torstepu
  */ 
 #include "ADC.h"
+
 void adc_init(void){
 	// Sett PD5 (OC1A) som utgang
 	DDRD |= (1 << PD5);

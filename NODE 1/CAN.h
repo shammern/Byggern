@@ -17,6 +17,10 @@ typedef struct{
 	uint8_t data[8];
 } CAN_MESSAGE;
 
+typedef enum {
+    USER_INPUT = 1,
+} CAN_MESSAGE_ID;
+
 void interrupt_init();
 void isr_func();
 void CAN_transmit(CAN_MESSAGE* msg);
