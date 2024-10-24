@@ -36,6 +36,8 @@ void mcp2515_init(){
 	SPI_init(); // Initialize SPI
 	mcp2515_reset(); // Send reset - command
 	
+	_delay_ms(2);
+	
 	// Self - test
 	uint8_t value = mcp2515_read(MCP_CANSTAT);
 	if ((value & MODE_MASK) != MODE_CONFIG){
