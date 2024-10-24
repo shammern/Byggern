@@ -25,9 +25,6 @@ void interrupt_init(){
 	sei();
 }
 
-void isr_func(){
-	
-}
 
 void CAN_init(uint8_t mode){
 	//Init CAN in specified mode
