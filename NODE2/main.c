@@ -5,10 +5,14 @@
  * Author : sigvesm
  */ 
 
+#define F_CPU 84000000
+#define UART_BAUDRATE 9600
 
 #include "sam.h"
 #include "uart.h"
 #include "can.h"
+#include "time.h"
+#include <stdio.h>
 
 
 void configure_pin(void) {
@@ -16,11 +20,13 @@ void configure_pin(void) {
 	PMC->PMC_PCER0 |= (1 << ID_PIOB);
 
 	// Step 2: Set PB13 as output
-	PIOB->PIO_OER |= (1 << 13);   // Set PB13 to output
 	PIOB->PIO_PER |= (1 << 13);   // Enable control of PB13 by PIOB
-
+	PIOB->PIO_OER |= (1 << 13);   // Set PB13 to output
+	
 	// Step 3: Set PB13 high
-	PIOB->PIO_SODR |= (1 << 13);  // Set PB13 high
+	PIOB->PIO_CODR |= (1 << 13);  // Set PB13 LOW
+	//PIOB->PIO_SODR |= (1 << 13);  // Set PB13 HIGH
+	
 }
 
 
@@ -28,29 +34,13 @@ int main(void)
 {
     /* Initialize the SAM system */
     SystemInit();
-	uart_init();
-	
+	WDT->WDT_MR = WDT_MR_WDDIS; //disables the watchdog timer
+	uart_init(F_CPU, UART_BAUDRATE);
+	can_init(1);
+	printf("\n-----------------------PROGRAM START------------------------\n");
+	CanMsg m;
+	while(1){
 
-    /* Replace with your application code */
-	
-	can_init(0);
-	
-	CanMsg message;
-	
-	message.id = 100;
-	message.length = 8;
-	message.byte[0] = 0xFF;
-	message.byte[1] = 0x22;
-	message.byte[2] = 0x33;
-	message.byte[3] = 0x44;
-	message.byte[4] = 0x55;
-	message.byte[5] = 0x66;
-	message.byte[6] = 0x77;
-	message.byte[7] = 0x88;
-
-	
-    while (1) 
-    {
-		can_tx(message);
-    }
+		
+	}
 }

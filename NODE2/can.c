@@ -6,10 +6,10 @@
 void can_printmsg(CanMsg m){
     printf("CanMsg(id:%d, length:%d, data:{", m.id, m.length);
     if(m.length){
-        printf("%d", m.byte[0]);
+        printf("%d", m.data[0]);
     }
     for(uint8_t i = 1; i < m.length; i++){
-        printf(", %d", m.byte[i]);
+        printf(", %d", m.data[i]);
     }
     printf("})\n");
 }
@@ -80,15 +80,15 @@ void can_tx(CanMsg m){
     m.length = m.length > 8 ? 8 : m.length;
     
     //  Put message in can data registers
-    CAN0->CAN_MB[txMailbox].CAN_MDL = m.dword[0];
-    CAN0->CAN_MB[txMailbox].CAN_MDH = m.dword[1];
+    CAN0->CAN_MB[txMailbox].CAN_MDL = m.data[3] << 24 | m.data[2] << 16 | m.data[1] << 8 | m.data[0];
+    CAN0->CAN_MB[txMailbox].CAN_MDH = m.data[7] << 24 | m.data[6] << 16 | m.data[5] << 8 | m.data[4];
         
     // Set message length and mailbox ready to send
     CAN0->CAN_MB[txMailbox].CAN_MCR = (m.length << CAN_MCR_MDLC_Pos) | CAN_MCR_MTCR;
 }
 
 uint8_t can_rx(CanMsg* m){
-    if(!(CAN0->CAN_MB[rxMailbox].CAN_MSR & CAN_MSR_MRDY)){
+	    if(!(CAN0->CAN_MB[rxMailbox].CAN_MSR & CAN_MSR_MRDY)){
         return 0;
     }
 
@@ -99,20 +99,27 @@ uint8_t can_rx(CanMsg* m){
     m->length = (uint8_t)((CAN0->CAN_MB[rxMailbox].CAN_MSR & CAN_MSR_MDLC_Msk) >> CAN_MSR_MDLC_Pos);
     
     // Get data from CAN mailbox
-    m->dword[0] = CAN0->CAN_MB[rxMailbox].CAN_MDL;
-    m->dword[1] = CAN0->CAN_MB[rxMailbox].CAN_MDH;
-                
+    uint32_t data_low = CAN0->CAN_MB[rxMailbox].CAN_MDL;
+    uint32_t data_high = CAN0->CAN_MB[rxMailbox].CAN_MDH;
+    
+	// Split value1 into the first 4 bytes of the array
+	m->data[3] = (data_low >> 24) & 0xFF;  // Most significant byte of value1
+	m->data[2] = (data_low >> 16) & 0xFF;
+	m->data[1] = (data_low >> 8) & 0xFF;
+	m->data[0] = data_low & 0xFF;          // Least significant byte of value1
+	
+	// Split value2 into the next 4 bytes of the array
+	m->data[7] = (data_high >> 24) & 0xFF;  // Most significant byte of value2
+	m->data[6] = (data_high >> 16) & 0xFF;
+	m->data[5] = (data_high >> 8) & 0xFF;
+	m->data[4] = data_high & 0xFF;          // Least significant byte of value2
+	
     // Reset for new receive
     CAN0->CAN_MB[rxMailbox].CAN_MMR = CAN_MMR_MOT_MB_RX;
     CAN0->CAN_MB[rxMailbox].CAN_MCR |= CAN_MCR_MTCR;
     return 1;
 }
     
-/*
-
-Fiks interrupt init funksjon og mulig man trenger en ISR
-
-*/
 
     
 
@@ -131,6 +138,7 @@ void CAN0_Handler(void){
     }
     
     if(can_sr & CAN_SR_MB0){
+		
         // Disable interrupt
         CAN0->CAN_IDR = CAN_IER_MB0;
     }
