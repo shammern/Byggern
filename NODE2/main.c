@@ -7,12 +7,13 @@
 
 #define F_CPU 84000000
 #define UART_BAUDRATE 9600
-
+#include <stdio.h>
 #include "sam.h"
 #include "uart.h"
 #include "can.h"
 #include "time.h"
-#include <stdio.h>
+#include "PWM.h"
+
 
 
 void configure_pin(void) {
@@ -38,7 +39,13 @@ int main(void)
 	uart_init(F_CPU, UART_BAUDRATE);
 	can_init(1);
 	printf("\n-----------------------PROGRAM START------------------------\n");
-	CanMsg m;
+	//CanMsg m;
+	PWM_init();
+	
+	
+	PWM_set_duty(0.2, 5);
+	
+	
 	while(1){
 
 		
