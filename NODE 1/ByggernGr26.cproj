@@ -160,6 +160,12 @@
     <Compile Include="GlobVariabel.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="JoystickDriver.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="JoystickDriver.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="MCP2515.c">
       <SubType>compile</SubType>
     </Compile>
