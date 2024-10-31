@@ -2,6 +2,7 @@
 #pragma once
 
 #include <stdint.h>
+#include "Common.h"
 
 
 #define CAN_BAUDRATE	0x00143156 //This gives bit time = 4 us

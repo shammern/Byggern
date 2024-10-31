@@ -129,10 +129,21 @@ void CAN0_Handler(void){
     
     // RX interrupt
     if(can_sr & (1 << rxMailbox)){
-        // Add your message-handling code here
 		CanMsg message;
 		can_rx(&message);
-        can_printmsg(message);
+		int ID = message.id;
+		int x_pos = 0;
+		
+		switch(ID){
+			case 1: //USER INPUT
+				x_pos = (int)(message.data[0]) - 100;
+				//int y_pos = message.data[1] -= 100;
+				servo_set_pos(x_pos);	
+				break;
+			
+			
+	}
+        //can_printmsg(message);
     } else {
         printf("CAN0 message arrived in non-used mailbox\n\r");
     }
@@ -144,6 +155,6 @@ void CAN0_Handler(void){
     }
     
     NVIC_ClearPendingIRQ(ID_CAN0);
-} 
+}
 
 
