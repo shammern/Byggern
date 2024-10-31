@@ -148,6 +148,9 @@
     <Compile Include="CAN.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Common.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Fonts.h">
       <SubType>compile</SubType>
     </Compile>
@@ -158,12 +161,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="GlobVariabel.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="JoystickDriver.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="JoystickDriver.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="MCP2515.c">
@@ -194,6 +191,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="SPI.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="user_input.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="user_input.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="XMEM.c">

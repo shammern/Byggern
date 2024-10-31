@@ -6,20 +6,11 @@
  */ 
 
 #include "MCP2515.h"
+#include "Common.h"
 
 
 #ifndef CAN_H_
 #define CAN_H_
-
-typedef struct{
-	uint16_t msg_ID;
-	uint8_t msg_length;
-	uint8_t data[8];
-} CAN_MESSAGE;
-
-typedef enum {
-    USER_INPUT = 1,
-} CAN_MESSAGE_ID;
 
 void interrupt_init();
 void isr_func();

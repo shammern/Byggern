@@ -18,6 +18,8 @@ OLED.c
 
 SPI.c
 
+user_input.c
+
 XMEM.c
 
 SRAM.c
