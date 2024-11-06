@@ -16,6 +16,8 @@
 #include "SERVO_driver.h"
 #include "ADC.h"
 #include "game.h"
+#include "encoder.h"
+
 static unsigned int GOAL_COUNT;
 
 
@@ -42,18 +44,21 @@ int main(void)
 	WDT->WDT_MR = WDT_MR_WDDIS; //disables the watchdog timer
 	uart_init(F_CPU, UART_BAUDRATE);
 	can_init(1);
+	encoder_init();
 	printf("\n-----------------------PROGRAM START------------------------\n");
 	//CanMsg m;
 	servo_init();
 	adc_init();
-	uint8_t update_value;
+	PWM_set_duty(0.5, 0);
+	//uint8_t update_value;
 	while(1){
-	update_value = goal_register();
-	
-	if (update_value){
-		GOAL_COUNT ++;
-	}
-	printf("GOAL COUNT IS: %d\n", GOAL_COUNT);
+		int32_t position = read_encoder();
+		
+		// Skriv ut posisjonen eller bruk den i applikasjonen
+		printf("Encoder Posisjon: %d\n", position);
+		
+		// Forsinkelse for lesbarhet (kan justeres etter behov)
+		time_spinFor(msecs(100));
 		
 	}
 }

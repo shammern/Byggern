@@ -180,6 +180,12 @@
     <Compile Include="Device_Startup\system_sam3xa.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="encoder.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="encoder.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="game.c">
       <SubType>compile</SubType>
     </Compile>
@@ -189,10 +195,22 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="motor_driver.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="motor_driver.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="photo_diode.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="photo_diode.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="PID.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="PID.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="PWM.c">
