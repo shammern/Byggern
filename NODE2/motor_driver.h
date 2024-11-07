@@ -11,6 +11,11 @@
 #define MOTOR_DRIVER_H_
 
 #include "sam.h"
+#include <stdio.h>
+#include "PWM.h"
+#include "PID.h"
+#include <stdlib.h>
+#include "encoder.h"
 
 
 #define ENABLE	PIO_PB12
@@ -23,11 +28,13 @@ void motor_enable(void);
 
 void motor_disable(void);
 
-void set_motor_speed(int speed);
+void set_motor_speed(float speed);
 
 void set_motor_direction(int dir);
 
-void drive_motor(int slider_val);
+void drive_motor_joystick(int x_value);
+
+void drive_motor_slider(uint8_t slider_val);
 
 
 

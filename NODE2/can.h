@@ -2,7 +2,9 @@
 #pragma once
 
 #include <stdint.h>
-#include "Common.h"
+#include "motor_driver.h"
+#include "SERVO_driver.h"
+#include "solenoide.h"
 
 
 #define CAN_BAUDRATE	0x00143156 //This gives bit time = 4 us

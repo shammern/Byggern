@@ -13,11 +13,11 @@
 
 void encoder_init(void);
 
-int32_t read_encoder(void);
+uint32_t read_encoder(void);
 
-static int32_t scale_encoder_value(int32_t value);
+uint8_t scale_encoder_value(uint32_t encoder_value);
 
-
+int scale_encoder_joystick(uint32_t encoder_value);
 
 
 #endif /* ENCODER_H_ */

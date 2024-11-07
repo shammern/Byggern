@@ -225,6 +225,12 @@
     <Compile Include="servo_driver.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="solenoide.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="solenoide.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="time.c">
       <SubType>compile</SubType>
     </Compile>

@@ -2,6 +2,7 @@
 #include "sam.h"
 #include "can.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 void can_printmsg(CanMsg m){
     printf("CanMsg(id:%d, length:%d, data:{", m.id, m.length);
@@ -133,16 +134,30 @@ void CAN0_Handler(void){
 		can_rx(&message);
 		int ID = message.id;
 		int x_pos = 0;
+		int y_pos = 0;
+		int r_slider = 0;
+		int button_pressed = 0;
 		
 		switch(ID){
 			case 1: //USER INPUT
 				x_pos = (int)(message.data[0]) - 100;
-				//int y_pos = message.data[1] -= 100;
-				servo_set_pos(x_pos);	
+				y_pos = (int)(message.data[1]) - 100;
+				button_pressed = (int)(message.data[3]);
+				printf("button value: %d\n: ", button_pressed);
+				
+				//r_slider = message.data[7];
+				servo_set_pos(y_pos);
+				printf("Passed servo\n");
+				run_solenoide(button_pressed);
+				//printf("Slider pos: %d\n", r_slider);
+				//drive_motor_slider(r_slider);
+				printf("x_pos value: %d\n: ", x_pos);
+				drive_motor_joystick(x_pos);
+				
 				break;
 			
 			
-	}
+		}
         //can_printmsg(message);
     } else {
         printf("CAN0 message arrived in non-used mailbox\n\r");
