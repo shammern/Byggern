@@ -96,15 +96,15 @@ Joystick_direction joyStickDir(JoyStick *Stick){
 	uint8_t y = abs(Stick->y_percent);
 	if (x>y){
 		if (Stick->x_percent>50){ //Added margins for debouncing
-			printf("RIGHT\n");
+			//printf("RIGHT\n");
 			return RIGHT;
 		}
 		else if(Stick->x_percent<-50){
-			printf("LEFT\n");
+			//printf("LEFT\n");
 			return LEFT;
 		}
 		else{
-			printf("NEUTRAL\n");
+			//printf("NEUTRAL\n");
 			return NEUTRAL;
 			
 		}
@@ -112,15 +112,15 @@ Joystick_direction joyStickDir(JoyStick *Stick){
 	}
 	else if (x<y){
 		if (Stick->y_percent>50){
-			printf("UP\n");
+			//printf("UP\n");
 			return UP;
 		}
 		else if(Stick->y_percent<-50){
-			printf("DOWN\n");
+			//printf("DOWN\n");
 			return DOWN;
 		}
 		else{
-			printf("NEUTRAL\n");
+			//printf("NEUTRAL\n");
 			return NEUTRAL;
 			
 		}
@@ -128,7 +128,7 @@ Joystick_direction joyStickDir(JoyStick *Stick){
 	
 	else{
 		//printf("\nNEUTRAL\n");
-		printf("NEUTRAL\n");
+		//printf("NEUTRAL\n");
 		return NEUTRAL;
 		
 	}

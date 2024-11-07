@@ -54,12 +54,10 @@ ISR(INT2_vect){
 int main(void){	
 	hardware_init();
 
-	while(1){
-		//send_user_input(&stick, &slide);
-		printf("Sending message\n");
+	while(1){	
 		get_user_input(&stick, &slide);
 		send_user_input(&stick, &slide);
-		
+		printf("Sending message\n");
 	}
 }
 

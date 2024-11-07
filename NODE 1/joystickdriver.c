@@ -30,8 +30,8 @@ void send_user_input(void){
     message.data[3] = joyStickClick();
     message.data[4] = 0; //To be implemented
     message.data[5] = 0; //To be implemented
-    message.data[6] = slider.l_slider;
-    message.data[7] = slider.r_slider0; 
+    message.data[6] = slide.l_slider;
+    message.data[7] = slide.r_slider; 
 
     //send pos over CAN to correct cannode
     CAN_transmit(&message);
