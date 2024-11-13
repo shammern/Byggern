@@ -11,6 +11,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "sam.h"
 
 #ifndef PID_H
 #define PID_H

@@ -15,7 +15,7 @@ void encoder_init(void);
 
 uint32_t read_encoder(void);
 
-uint8_t scale_encoder_value(uint32_t encoder_value);
+int scale_encoder_value(uint32_t encoder_value);
 
 int scale_encoder_joystick(uint32_t encoder_value);
 

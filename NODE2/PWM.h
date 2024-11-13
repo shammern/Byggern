@@ -13,7 +13,6 @@
 
 void PWM_init();
 void PWM_set_duty(float duty_cycle, uint8_t channel);
-void PWM_set_freq(int freq, uint8_t channel);
 
 
 

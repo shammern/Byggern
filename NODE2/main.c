@@ -23,21 +23,6 @@
 static unsigned int GOAL_COUNT;
 
 
-
-// void configure_pin(void) {
-// 	// Step 1: Enable the clock for PIOB
-// 	PMC->PMC_PCER0 |= (1 << ID_PIOB);
-// 
-// 	// Step 2: Set PB13 as output
-// 	PIOB->PIO_PER |= (1 << 23);   // Enable control of PB13 by PIOB
-// 	PIOB->PIO_OER |= (1 << 23);   // Set PB13 to output
-// 	
-// 	// Step 3: Set PB13 high
-// 	PIOB->PIO_CODR |= (1 << 23);  // Set PB13 LOW
-// 	//PIOB->PIO_SODR |= (1 << 13);  // Set PB13 HIGH
-// 	
-// }
-
 void full_init(){
 	 SystemInit();
 	 WDT->WDT_MR = WDT_MR_WDDIS; //disables the watchdog timer
@@ -47,7 +32,6 @@ void full_init(){
 	 servo_init();
 	 adc_init();
 	 motor_init();
-	 //pid_init(2.0, 0, 1.0, 0.001, 100);
 	 solenoide_init();
 }
 
@@ -58,8 +42,16 @@ int main(void)
     full_init();
 	printf("\n-----------------------PROGRAM START------------------------\n");
 	
-	
 	while(1){
-		//drive_motor_slider(255);
+ 		
+		uint8_t update = goal_register();
+		if (update == 1){
+			GOAL_COUNT += update;
+			printf("CURRENT GOAL COUNT: %d\n", GOAL_COUNT);
+			time_spinFor(msecs(2000));
+		}	
+
+//  		GOAL_COUNT += goal_register();
+//  		printf("CURRENT GOAL COUNT: %d\n", GOAL_COUNT);
 	}
 }

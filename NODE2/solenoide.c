@@ -21,9 +21,7 @@ void solenoide_init(void){
 
 void run_solenoide(int run){
 	if (run){
-		PIOA->PIO_CODR |= SOLENOIDE_ID;
-		//time_spinFor(msecs(200));
-		
+		PIOA->PIO_CODR |= SOLENOIDE_ID;		
 	}else{
 		PIOA->PIO_SODR |= SOLENOIDE_ID;
 	}

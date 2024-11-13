@@ -27,6 +27,6 @@ void servo_set_pos(int pos){
 		printf("INVALID SERVO POSITION: %d\n", pos);
 		return;
 	}
-	float D = (OFFSET + pos * GAIN);
+	float D = (OFFSET + pos * GAIN); //ensures duty cycle within limits
 	PWM_set_duty(D, 1);
 }

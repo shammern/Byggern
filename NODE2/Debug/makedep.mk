@@ -30,5 +30,7 @@ solenoide.c
 
 time.c
 
+timer_counter.c
+
 uart.c
 

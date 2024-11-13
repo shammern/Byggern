@@ -11,12 +11,13 @@
 static int sum_error = 0; 
 static int prev_error = 0;
 #define MAX_U 100
-	
+#define F_CPU 84000000
 #define K_P 2
 #define K_I 0
 #define K_D 1
 
 #define MAX_U 100
+
 
 // 
 // void pid_init(float k_p, float k_i, float k_d, float timestep, int max_u){
@@ -37,23 +38,37 @@ static int prev_error = 0;
 // }
 
 float pid_controller(int ref, int curr_val){
-	float K_p = 0.08;
-	float K_i = 5;
+	if(curr_val > 100){
+		curr_val = 100; 
+	}else if(curr_val < -100){
+		curr_val = -100;
+	}
+	
+	float K_p = 0.5; 
+	float K_i = 2;
 	float K_d = 0;
-	float T = 1e-3;
-	
-	
-	int error = (ref - curr_val);
-	printf("ERROR_prosent: %d\n", error);
+	float T = 0.0001; //Same as periode for PWM signal
+	int error = ref - curr_val;
 	sum_error += error;
+	
+	if(sum_error > 3000){ //Integrator wind up
+		sum_error = 1000;
+	}else if (sum_error < -3000){
+		sum_error = -1000;
+	}
+	
 
 	float u_p = K_p * error;
-	float u_i = (T * K_i * sum_error);
+	float u_i = (T * K_i * sum_error * error); 
 	float u_d = (K_d / T) * (error - prev_error);
 
 	float u = u_p + u_i + u_d;
 	prev_error = error;
-
+	
+	if(u < 0){
+		u *= 1.5; //Fix for larger friction when driving left
+	}
+	
 	if(u > 100.0){
 		u = 100.0;
 	}
@@ -63,56 +78,8 @@ float pid_controller(int ref, int curr_val){
 	return u;
 }
 
-#define ENCODER_MIDPOINT 2790
-#define KP 0.5   // Proportional gain, adjust to tune
-#define KI 0.1   // Integral gain, adjust to tune
-#define KD 0.05  // Derivative gain, adjust to tune
-#define JOYSTICK_DEADZONE 5
-#define MOTOR_SPEED_MIN 0
-#define MOTOR_SPEED_MAX 100
-#define ENCODER_MAX 5580
-#define ENCODER_MIN 0
 
-int motor_position_controller(uint32_t encoder_value, int joystick_value) {
-	static int previous_error = 0;
-	static int integral = 0;
-	int target_position;
-	
-	// Map joystick value to encoder range
-	if (joystick_value != 0) {
-		target_position = ENCODER_MIDPOINT + (joystick_value * (ENCODER_MAX - ENCODER_MIN) / 200);
-		} else {
-		// Set target to midpoint when joystick is released
-		target_position = ENCODER_MIDPOINT;
-	}
-	
-	// Calculate error
-	int error = target_position - encoder_value;
-	
-	// If within deadzone, stop the motor
-	if (abs(error) <= JOYSTICK_DEADZONE) {
-		integral = 0;  // Reset integral term when within deadzone
-		return 0;      // Stop the motor
-	}
-	
-	// Integral calculation (accumulates error)
-	integral += error;
-	
-	// Derivative calculation (rate of change of error)
-	int derivative = error - previous_error;
-	
-	// PID formula
-	int motor_speed = (KP * error) + (KI * integral) + (KD * derivative);
-	
-	// Clamp motor_speed to be within MOTOR_SPEED_MIN and MOTOR_SPEED_MAX
-	if (motor_speed > MOTOR_SPEED_MAX) {
-		motor_speed = MOTOR_SPEED_MAX;
-		} else if (motor_speed < MOTOR_SPEED_MIN) {
-		motor_speed = MOTOR_SPEED_MIN;
-	}
-	
-	// Update previous error for the next iteration
-	previous_error = error;
-	
-	return motor_speed;
-}
+
+
+
+

@@ -24,17 +24,13 @@
 
 void motor_init(void);
 
-void motor_enable(void);
-
-void motor_disable(void);
-
 void set_motor_speed(float speed);
 
 void set_motor_direction(int dir);
 
 void drive_motor_joystick(int x_value);
 
-void drive_motor_slider(uint8_t slider_val);
+void drive_motor_slider(int slider_val);
 
 
 

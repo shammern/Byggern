@@ -143,17 +143,11 @@ void CAN0_Handler(void){
 				x_pos = (int)(message.data[0]) - 100;
 				y_pos = (int)(message.data[1]) - 100;
 				button_pressed = (int)(message.data[3]);
-				printf("button value: %d\n: ", button_pressed);
-				
-				//r_slider = message.data[7];
+				r_slider = (int)(message.data[7]);
 				servo_set_pos(y_pos);
-				printf("Passed servo\n");
 				run_solenoide(button_pressed);
-				//printf("Slider pos: %d\n", r_slider);
-				//drive_motor_slider(r_slider);
-				printf("x_pos value: %d\n: ", x_pos);
 				drive_motor_joystick(x_pos);
-				
+				//drive_motor_slider(r_slider);
 				break;
 			
 			

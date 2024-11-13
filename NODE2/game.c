@@ -8,15 +8,15 @@
 #include "game.h"
 #include "time.h"
 
-#define THRESHOLD 3000
-#define TIME_THRESHOLD msecs(1000)
+#define THRESHOLD 300
+#define TIME_THRESHOLD msecs(2000)
 static int TIME = 0;
 static int THRESHOLD_FLAG = 0;
 
 uint8_t goal_register(){
-	int value = 0;
+	uint16_t value = 0;
 	value = adc_read();
-	
+	//checks if conditions to update goalcount is met
 	if (value < THRESHOLD && !THRESHOLD_FLAG){
 		int TIME_NOW = time_now();
 		if (TIME_NOW - TIME < TIME_THRESHOLD){
@@ -27,6 +27,10 @@ uint8_t goal_register(){
 		return 1;		
 	}
 	else if (value > THRESHOLD){
+// 		int TIME_NOW = time_now();
+// 		if (TIME_NOW - TIME < TIME_THRESHOLD){
+// 			return 0;
+// 		}
 		THRESHOLD_FLAG = 0;
 	}
 	return 0;
