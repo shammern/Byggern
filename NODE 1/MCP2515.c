@@ -38,13 +38,12 @@ void mcp2515_init(){
 	
 	_delay_ms(2);
 	
-	// Self - test
 	uint8_t value = mcp2515_read(MCP_CANSTAT);
 	if ((value & MODE_MASK) != MODE_CONFIG){
 		printf(" MCP2515 is NOT in configuration mode after reset !\n");
 	}
 	
-	uint8_t BRP = F_CPU_CAN/(2*NUMBER_OF_TQ*BAUDRATE); //Finner baudrateprescaler
+	uint8_t BRP = F_CPU_CAN/(2*NUMBER_OF_TQ*BAUDRATE); //Baudrate prescaler
 	
 	mcp2515_write(MCP_CNF1, SJW4 | (BRP-1));
 	mcp2515_write(MCP_CNF2, BTLMODE | SAMPLE_3X | ((PS1-1) << 3) | (PROPAG - 1));
@@ -54,7 +53,7 @@ void mcp2515_init(){
 
 void mcp2515_request_to_send(){
 	SPI_slaveSelect();
-	SPI_write(MCP_RTS_TX0); //Sjekker om TX0 registeret har data som skal sendes og setter interrupt flag
+	SPI_write(MCP_RTS_TX0); //Checks if TX0 register has data thats ready to send and sets interrupt flag
 	SPI_slaveDeselect();
 }
 

@@ -50,7 +50,6 @@ const char* highscore_menu_map[] = {
 void menu_init(){
 	OLED_reset();
 	OLED_home();
-	//menu_instance.CURRENT_PAGE = 0;
 	OLED_invert(MAIN_MENU.CURRENT_PAGE, main_menu_map[MAIN_MENU.CURRENT_PAGE]);
 	pos_calibrate(&JOYSTICK);
 }
@@ -138,13 +137,14 @@ void game_menu(){
 			while(joyStickClick()){}
 			//NAVIGATE TO SELCETED SUBMENU
 			switch(GAME_MENU.CURRENT_PAGE){
-				case 0: //DO SOMETHING
+				case 0: 
+					play_game(&JOYSTICK, &SLIDER);
 					break;
 				
-				case 1: //DO SOMETHING
+				case 1: //For further implementation
 					break;
 				
-				case 2: //DO SOMETHING
+				case 2: //For further implementation
 					break;
 				
 				case 3: //RETURN TO MAINMENU
@@ -174,13 +174,13 @@ void settings_menu(){
 			while(joyStickClick()){}
 			//NAVIGATE TO SELCETED SUBMENU
 			switch(SETTINGS_MENU.CURRENT_PAGE){
-				case 0: //DO SOMETHING
+				case 0: //For further implementation
 					break;
 				
-				case 1: //DO SOMETHING
+				case 1: //For further implementation
 					break;
 				
-				case 2: //DO SOMETHING
+				case 2: //For further implementation
 					break;
 				
 				case 3: //RETURN TO MAINMENU
@@ -210,13 +210,13 @@ void highscore_menu(){
 			while(joyStickClick()){}
 			//NAVIGATE TO SELCETED SUBMENU
 			switch(HIGHSCORE_MENU.CURRENT_PAGE){
-				case 0: //DO SOMETHING
+				case 0: //For further implementation
 					break;
 				
-				case 1: //DO SOMETHING
+				case 1: //For further implementation
 					break;
 				
-				case 2: //DO SOMETHING
+				case 2: //For further implementation
 					break;
 				
 				case 3: //RETURN TO MAINMENU

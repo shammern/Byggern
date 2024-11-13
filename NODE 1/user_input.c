@@ -23,7 +23,7 @@ void send_user_input(JoyStick *stick, Slider *slide){
 
 CAN_MESSAGE message;
 message.msg_ID = USER_INPUT;
-message.msg_length = 8; //byte, men tar denne byte eller bit?
+message.msg_length = 8; 
 message.data[0] = (uint8_t)stick->x_percent+100;
 message.data[1] = (uint8_t)stick->y_percent+100;
 message.data[2] = (uint8_t)joyStickDir(stick);
@@ -33,12 +33,10 @@ message.data[5] = 0; //To be implemented
 message.data[6] = slide->l_slider;
 message.data[7] = slide->r_slider;
 
-//send pos over CAN to correct cannode
 CAN_transmit(&message);
 }
 
 void get_user_input(JoyStick *stick, Slider *slide){
 	adc_read(stick, slide);
 	joyStickPos(stick);
-	//joyStickDir(&stick)
 }

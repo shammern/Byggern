@@ -7,12 +7,15 @@
 
 #include "OLED.h"
 #include "GlobVariabel.h"
+#include "CAN.h"
+#include "ADC.h"
+#include "user_input.h"
 
 
 #ifndef GAME_H_
 #define GAME_H_
 
-
+void play_game(JoyStick * stick, Slider *slide);
 
 
 

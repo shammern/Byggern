@@ -7,43 +7,31 @@
 #include "ADC.h"
 
 void adc_init(void){
-	// Sett PD5 (OC1A) som utgang
+	// Set PD5 (OC1A) as output
 	DDRD |= (1 << PD5);
 
-	// Sett Timer/Counter1 til Fast PWM-modus, 8-bit
-	// WGM12:0 = 011 (Fast PWM, 8-bit)
 	// COM1A1:0 = 10 (Clear OC1A on compare match, set OC1A at BOTTOM)
 	TCCR1A |= (1 << WGM10) | (1 << WGM11) | (1 << COM1A0) ;
-	TCCR1B |= (1 << WGM12) | (1 << WGM13) | (1 << CS10); // Sett prescaler til 8
+	TCCR1B |= (1 << WGM12) | (1 << WGM13) | (1 << CS10); // Set prescaler to 8
 		
 	//Configure buttons
-	
-	DDRD &= ~(1 << PD4);  //Set PD4 som input
-	PORTB |= (1 << PD4);  // Enable pull-up resistor on PB1
-	
-	/*
-	DDRD &= ~(1 << PD0);  // Set PD0 as input
-	DDRB &= ~(1 << PB1);  // Set PB1 as input
-	PORTD |= (1 << PD0);  // Enable pull-up resistor on PD0
-	PORTB |= (1 << PB1);  // Enable pull-up resistor on PB1
-	*/
+	DDRD &= ~(1 << PD4);  //Set PD4 as input
+	PORTB |= (1 << PD4);  // Enable pull-up resistor on PD4
 }
 
-void adc_read(JoyStick *Stick, Slider	*slide){
+void adc_read(JoyStick *Stick, Slider *slide){
 	xmem_write(1, XMEM_ADC);
 	_delay_us(15);
 	Stick->y_value = xmem_read(XMEM_ADC);
 	Stick->x_value = xmem_read(XMEM_ADC);
 	slide->l_slider = xmem_read(XMEM_ADC);
 	slide->r_slider = xmem_read(XMEM_ADC);
-	_delay_ms(50);
+	_delay_ms(50); //delay to ensure all values are read correctly
 }
 
 
 
 void test_adc(JoyStick *Stick, Slider *Slide){
-	//JoyStick Stick;
-	//pos_calibrate(&Stick);
 	adc_read(Stick, Slide);
 	joyStickPos(Stick);
 	printf("------------------------------------\n");
@@ -57,9 +45,7 @@ void test_adc(JoyStick *Stick, Slider *Slide){
 	printf("The Right slider value is : %d\n",Slide->r_slider);
 	printf("The Left slider value is : %d\n",Slide->l_slider);
 	printf("Y NEUTRAL IS : %d\n", Stick->y_neutralPoint);
-	printf("X NEUTRAL IS : %d\n", Stick->x_neutralPoint);
-	
-	
+	printf("X NEUTRAL IS : %d\n", Stick->x_neutralPoint);		
 }
 
 void joyStickPos(JoyStick *Stick){
@@ -96,41 +82,28 @@ Joystick_direction joyStickDir(JoyStick *Stick){
 	uint8_t y = abs(Stick->y_percent);
 	if (x>y){
 		if (Stick->x_percent>50){ //Added margins for debouncing
-			//printf("RIGHT\n");
 			return RIGHT;
 		}
 		else if(Stick->x_percent<-50){
-			//printf("LEFT\n");
 			return LEFT;
 		}
 		else{
-			//printf("NEUTRAL\n");
-			return NEUTRAL;
-			
-		}
-		
+			return NEUTRAL;			
+		}	
 	}
 	else if (x<y){
 		if (Stick->y_percent>50){
-			//printf("UP\n");
 			return UP;
 		}
 		else if(Stick->y_percent<-50){
-			//printf("DOWN\n");
 			return DOWN;
 		}
 		else{
-			//printf("NEUTRAL\n");
-			return NEUTRAL;
-			
+			return NEUTRAL;		
 		}
 	}
-	
 	else{
-		//printf("\nNEUTRAL\n");
-		//printf("NEUTRAL\n");
-		return NEUTRAL;
-		
+		return NEUTRAL;	
 	}
 }
 
@@ -143,7 +116,6 @@ void pos_calibrate(JoyStick *Stick){
 
 uint8_t joyStickClick(){
 	if ((PIND & (1 << PD4)) == 0) {
-		//printf("THE BUTTON IS PRESSED");
 		return 1;
 	}
 	return 0;

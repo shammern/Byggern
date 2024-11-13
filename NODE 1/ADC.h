@@ -27,6 +27,6 @@ void test_adc(JoyStick *Stick, Slider *Slide);
 void joyStickPos(JoyStick *Stick);
 Joystick_direction joyStickDir(JoyStick *Stick);
 JoyStick* JoyStickInit(void); 
-uint8_t joyStickClick(); //Denne m� nok sees p� senere n�r vi vet hvordan den skal implementeres, men den funker :)
+uint8_t joyStickClick();
 
 #endif /* ADC_H_ */

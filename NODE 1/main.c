@@ -47,7 +47,7 @@ void hardware_init(){
 
 ISR(INT2_vect){
 	CAN_recieve(&receivedmsg);
-	mcp2515_bit_modify(MCP_CANINTF, MCP_RX0IF | MCP_RX1IF, 0x00);	//Clears interupt flag
+	mcp2515_bit_modify(MCP_CANINTF, MCP_RX0IF | MCP_RX1IF, 0x00);	//Clears interrupt flag
 }
 
 
@@ -55,9 +55,7 @@ int main(void){
 	hardware_init();
 
 	while(1){	
-		get_user_input(&stick, &slide);
-		send_user_input(&stick, &slide);
-		printf("Sending message\n");
+		menu();
 	}
 }
 

@@ -13,6 +13,7 @@ void interrupt_init(){
 	//disable interrupts
 	cli();
 	
+	//configures PE0 as interupt pin
 	DDRE &= ~(1<<PE0);
 	
 	//Enable change of INT2 vector
@@ -21,7 +22,7 @@ void interrupt_init(){
 	//interrupt on falling edge
 	EMCUCR = ~(1<<ISC2);
 	
-	//Enable global interrupts, mulig denne er feil
+	//Enable global interrupts
 	sei();
 }
 
@@ -42,7 +43,6 @@ void CAN_init(uint8_t mode){
 
 
 void CAN_transmit(CAN_MESSAGE *msg){
-	//printf("In transmit");
 	mcp2515_write(MCP_TXB0SIDH, msg->msg_ID / 8);			//Sets 8 MSB in msgID
 	mcp2515_write(MCP_TXB0SIDL, (msg->msg_ID % 8) << 5);	//Sets 3LSB in msgID
 	mcp2515_write(MCP_TXB0DLC, msg->msg_length);		//Sets datalength code bits

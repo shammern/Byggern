@@ -23,7 +23,7 @@ main.d main.o: .././main.c \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h \
  .././SRAM.h .././XMEM.h .././ADC.h .././Common.h .././OLED.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h \
- .././MENU.h .././GAME.h .././SPI.h .././CAN.h .././MCP2515.h \
+ .././MENU.h .././GAME.h .././CAN.h .././MCP2515.h .././SPI.h \
  .././user_input.h
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdio.h:
@@ -88,10 +88,10 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 
 .././GAME.h:
 
-.././SPI.h:
-
 .././CAN.h:
 
 .././MCP2515.h:
+
+.././SPI.h:
 
 .././user_input.h:

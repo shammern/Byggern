@@ -44,20 +44,4 @@ void uart_setup_stdio(void) {
 		stdout = uart_stdout;  // Redirects printf to UART
 	}
 }
-
-/*
-int main(void) {
-	USART_Init(MYUBRR);
-
-	uart_setup_stdio();
-
-	printf("UART kommunikasjon er klar!\n");
-
-	for(int i = 0; i < 10; i++) {
-		
-		printf("Teller: %d\n", i);
-		_delay_ms(1000);  
-	}
-}
-	*/
 	
